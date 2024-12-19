@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Cours{% endblock %}
+
+{% block body %}
+    <h1>Liste des Cours pour le Niveau {{ niveau.nom }}</h1>
+
+    <a href="{{ path('admin_create_cours') }}" class="btn btn-primary">Créer un Cours</a>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Nom du Cours</th>
+                <th>Module</th>
+                <th>Professeur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cours in cours %}
+                <tr>
+                    <td>{{ cours.nom }}</td>
+                    <td>{{ cours.module.nom }}</td>
+                    <td>{{ cours.professeur.email }}</td>
+                    <td>
+                        <a href="{{ path('admin_show_cours', {id: cours.id}) }}" class="btn btn-info">Voir</a>
+                        <a href="{{ path('admin_edit_cours', {id: cours.id}) }}" class="btn btn-warning">Modifier</a>
+                        <a href="{{ path('admin_delete_cours', {id: cours.id}) }}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun cours trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
